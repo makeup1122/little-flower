@@ -18,7 +18,7 @@ exports.up = function(db) {
   db.all("CREATE TABLE `flower`.`lf_student` (\
   `stu_id` INT NOT NULL AUTO_INCREMENT,\
   `stu_name` VARCHAR(8) NULL,\
-  `stu_sex` VARCHAR(2) NULL,\
+  `stu_sex` ENUM('男', '女') NOT NULL,\
   `stu_birthday` DATE NULL,\
   `class_id` INT NULL COMMENT '班级外键',\
   `stu_mother` VARCHAR(8) NULL,\
