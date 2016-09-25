@@ -19,13 +19,12 @@
     "body-parser": "~1.15.1",
     "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",
-    "db-migrate": "^0.10.0-beta.16",
-    "db-migrate-mysql": "^1.1.7",
     "debug": "~2.2.0",
     "ejs": "~2.4.1",
     "express": "~4.13.4",
     "morgan": "~1.7.0",
     "mysql": "^2.11.1",
+    "sequelize": "^3.24.3",
     "serve-favicon": "~2.3.0"
   }
 }
