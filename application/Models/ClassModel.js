@@ -4,7 +4,7 @@ var sequelize = new Sequelize('flower', 'root', '');
 //表定义
 var Class = sequelize.define('class', {
     'cla_name': Sequelize.STRING,
-    'cla_teacher': Sequelize.STRING
+    'cla_teacher': {type:Sequelize.STRING,defaultValue:'Flower'}
 }, {
     ClassMethods: {
         Count: function() {
@@ -25,6 +25,14 @@ exports.findAndCountAll = function(callback) {
         callback(result);
     });
 };
+exports.findOne = function(id,callback){
+    Class.findById(id).then(function(result){
+        callback(result);  
+    });
+};
+exports.InsertOne = function(data){
+    Class.create(data);
+}
 // Class.findAndCountAll();
 //Setter
 // Class.create({ 'cla_name': 'class1', 'cla_teacher': 'flower1' });

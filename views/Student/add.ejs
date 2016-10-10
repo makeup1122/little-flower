@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta charset="UTF-8">
+        <title></title>
+    </header>
+    <body>
+        <form action="" method="post">
+            <label>姓名：</label><input type="text" name="stu_name" placeholder="姓名"></input>
+            <label>姓别：</label><input type="radio" name="stu_sex" value="男"/><span>男</span>
+                                 <input type="radio" name="stu_sex" value="女"/><span>女</span>
+            <label>生日：</label><input type="date"  name="stu_birthday" placeholder="生日"> 
+            <input type="submit" value="添加"></input>
+            <input type="hidden" name="class_id" value='<%=class_id%>'>
+        </form>
+    </body>
+</html>

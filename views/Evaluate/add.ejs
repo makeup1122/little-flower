@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta charset="UTF-8">
+        <title></title>
+    </header>
+    <body>
+        <form action="" method="post">
+            <label>标题：</label><input type="text" name="eva_title" placeholder="标题"></input>
+            <label>整体课评价：</label><textarea  name="eva_content"></textarea>
+            <input type="submit" value="添加"></input>
+            <input type="hidden" name="eva_class_id" value='<%=class_id%>'>
+        </form>
+        
+        <ul>
+           <% for(var i=0; i<students.length; i++) {%>
+               <form action="/evaluate/upload" method="post" enctype="multipart/form-data">
+                   <a href="/student/<%=students[i].dataValues.id%>"><%=students[i].dataValues.stu_name%></a>
+                   <textarea name="eva_stu_content"></textarea>
+                   <input type="file" name="eva_stu_images" multiple="multiple"></input>
+                   <input type="submit" value="Finish"></input>
+               </form>
+           <% }%>
+        </ul>
+    </body>
+</html>
