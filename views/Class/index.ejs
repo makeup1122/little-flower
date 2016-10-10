@@ -19,9 +19,11 @@
       </thead>
       <tbody>
          <% for(var i=0; i<evaluates.length;i++){%>
-         <tr><td><a href="###"><%=evaluates[i].id%></a></td>
-         <td><a href="###"><%=evaluates[i].eva_title%></a></td>
-         <td><a href="###"><%=evaluates[i].eva_content%></a></td></tr>
+         <tr>
+            <td><a href="/evaluate/<%=evaluates[i].id%>"><%=evaluates[i].id%></a></td>
+            <td><a href="/evaluate/<%=evaluates[i].id%>"><%=evaluates[i].eva_title%></a></td>
+            <td><a href="/evaluate/<%=evaluates[i].id%>"><%=evaluates[i].eva_content%></a></td>
+         </tr>
          <% }%>
       </tbody>
    </table>
