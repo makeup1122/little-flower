@@ -1,6 +1,8 @@
 var Sequelize = require('sequelize');
 //数据库对象
-var sequelize = new Sequelize('flower', 'root', '');
+var config = require('../../config/database');
+// console.log(config.database);
+var sequelize = new Sequelize(config.database,config.username,config.password);
 //表定义
 var Class = sequelize.define('class', {
     'cla_name': Sequelize.STRING,

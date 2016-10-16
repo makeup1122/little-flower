@@ -1,9 +1,11 @@
-{
+var config = {
   "dev": {
     "host": "localhost",
     "driver": "mysql",
-    "user": "root",
+    "username": "root",
     "password": "",
     "database": "flower"
   }
-}
+};
+
+module.exports = config.dev;

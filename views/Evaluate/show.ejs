@@ -1,0 +1,9 @@
+<p>标题：<%=eva_result.dataValues.eva_title%></p>
+<p>内容: <%=eva_result.dataValues.eva_content%></p>
+<ul>
+<% for(var i=0; i<eva_stu_result.length;i++){%>
+     <li>
+         <p><%=eva_stu_result[i].dataValues.eva_stu_content%></p>
+     </li>
+<% } %>
+</ul>

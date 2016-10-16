@@ -1,30 +1,120 @@
-<label>班级：</label><%=class_info.dataValues.cla_name%>
-<label>老师：</label><%=class_info.dataValues.cla_teacher%>
-<ul>
-   <% for(var i=0; i<students.length; i++) {%>
-       <a href="/student/<%=students[i].dataValues.id%>"><%=students[i].dataValues.stu_name%></a>
-   <% }%>
-</ul>
+<!DOCTYPE>
+<html>
+<header>
+   <meta charset="UTF-8">
+   <title>
+      <%=class_info.dataValues.cla_name%>
+   </title>
+   <% include ../Common/header %>
+</header>
 
-<a href="/student/add?class_id=<%=class_info.dataValues.id%>">ADD Student</a>
-<a href="/evaluate/add?class_id=<%=class_info.dataValues.id%>">ADD Evaluation</a>
-<ul>
-   <table>
-      <thead>
-         <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Content</th>
-         </tr>
-      </thead>
-      <tbody>
-         <% for(var i=0; i<evaluates.length;i++){%>
-         <tr>
-            <td><a href="/evaluate/<%=evaluates[i].id%>"><%=evaluates[i].id%></a></td>
-            <td><a href="/evaluate/<%=evaluates[i].id%>"><%=evaluates[i].eva_title%></a></td>
-            <td><a href="/evaluate/<%=evaluates[i].id%>"><%=evaluates[i].eva_content%></a></td>
-         </tr>
-         <% }%>
-      </tbody>
-   </table>
-</ul>
+<body>
+   <div class="page-header">
+      <h3>
+         <%=class_info.dataValues.cla_name%>
+            <small><%=class_info.dataValues.cla_teacher%></small>
+      </h3>
+   </div>
+   <div class="panel panel-default">
+      <div class="panel-heading">
+         学生们
+      </div>
+      <div class="panel-body">
+         <div class="table-responsive">
+            <table class="table table-condensed table-hover">
+               <thead>
+                  <tr>
+                     <th>姓名</th>
+                     <th>性别</th>
+                     <th>生日</th>
+                     <th>添加时间</th>
+                     <th>操作</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <% for(var i=0; i<students.length; i++) {%>
+                     <tr>
+                        <td>
+                           <a href="/student/<%=students[i].dataValues.id%>">
+                              <%=students[i].dataValues.stu_name%>
+                           </a>
+                        </td>
+                        <td>
+                           <%=students[i].dataValues.stu_sex%>
+                        </td>
+                        <td>
+                           <%=students[i].get('stu_birthday')%>
+                        </td>
+                        <td>
+                           <%=students[i].dataValues.createdAt%>
+                        </td>
+                        <td>
+                           <a href="/student/edit/<%=students[i].dataValues.id%>" class=" btn btn-warning">编辑</a>
+                           <a href="###" class=" btn btn-danger">删除</a>
+                        </td>
+                     </tr>
+                     <% }%>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="panel-footer">
+         <a class="btn btn-primary" href="/student/add?class_id=<%=class_info.dataValues.id%>">添加学生</a>
+      </div>
+   </div>
+   <div class="panel panel-default">
+      <div class="panel-heading">
+         课评
+      </div>
+      <div class="panel-body">
+         <div class="table-responsive">
+            <table class="table table-condensed table-hover">
+               <thead>
+                  <tr>
+                     <th>编号</th>
+                     <th>题目</th>
+                     <th>课评</th>
+                     <th>时间</th>
+                     <th>操作</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <% for(var i=0; i<evaluates.length;i++){%>
+                     <tr>
+                        <td>
+                           <a href="/evaluate/<%=evaluates[i].id%>">
+                              <%=evaluates[i].id%>
+                           </a>
+                        </td>
+                        <td>
+                           <a href="/evaluate/<%=evaluates[i].id%>">
+                              <%=evaluates[i].eva_title%>
+                           </a>
+                        </td>
+                        <td>
+                           <a href="/evaluate/<%=evaluates[i].id%>">
+                              <%=evaluates[i].eva_content%>
+                           </a>
+                        </td>
+                        <td>
+                           <a href="/evaluate/<%=evaluates[i].id%>">
+                              <%=evaluates[i].createdAt%>
+                           </a>
+                        </td>
+                        <td>
+                           <a class="btn btn-warning" href="/evaluate/addStu?class_id=<%=evaluates[i].dataValues.eva_class_id%>&eva_id=<%=evaluates[i].dataValues.id%>">编辑</a>
+                           <a herf="###" class=" btn btn-danger">删除</a>
+                           </td>
+                     </tr>
+                     <% }%>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div class="panel-footer">
+         <a class="btn btn-primary" href="/evaluate/add?class_id=<%=class_info.dataValues.id%>">添加课评</a>
+      </div>
+   </div>
+</body>
+
+</html>

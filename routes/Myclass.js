@@ -3,11 +3,12 @@ var router = express.Router();
 const util = require('util');
 var TClass = require('../application/Models/ClassModel');
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('flower', 'root', '');
-var Student = sequelize.import("../application/Models/StudentDefine");
-var Evaluate = sequelize.import("../application/Models/EvaluateDefine");
+var config = require('../config/database');
+var sequelize = new Sequelize(config.database,config.username,config.password);
+var Student = require("../application/Models/StudentModel");
+var Evaluate = require("../application/Models/EvaluateModel");
   
-sequelize.sync();
+// sequelize.sync();
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     if(!isNaN(id)){
