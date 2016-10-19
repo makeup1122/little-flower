@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var config = require('../../config/database');
 var sequelize = new Sequelize(config.database, config.username, config.password);
-// var Student = sequelize.import('./StudentDefine');
+// var Stueva = require('./StuevaModel');
 var Student = sequelize.define('student', {
     'stu_name': {
         type: Sequelize.STRING(12),
@@ -34,5 +34,6 @@ var Student = sequelize.define('student', {
         defaultValue: 1
     }
 });
+
 Student.sync();
 module.exports = Student;

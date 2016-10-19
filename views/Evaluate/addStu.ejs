@@ -8,11 +8,11 @@
         <ul>
            <% for(var i=0; i<students.length; i++) {%>
                <form action="/evaluate/addStu" method="post" enctype="multipart/form-data">
-                   <input type="hidden" name="eva_student_id" value="<%=students[i].dataValues.id%>"></input>
-                   <input type="hidden" name="eva_class_id" value="<%=class_id%>"></input>
-                   <input type="hidden" name="eva_id" value="<%=eva_id%>"></input>
+                   <input type="hidden" name="evaluateId" value="<%=evaluate.dataValues.id%>"></input>
+                   <input type="hidden" name="studentId" value="<%=students[i].dataValues.id%>"></input>
+                   
                    <a href="/student/<%=students[i].dataValues.id%>"><%=students[i].dataValues.stu_name%></a>
-                   <textarea name="eva_stu_content"></textarea>
+                   <textarea name="eva_stu_content"><%=students[i].dataValues.stuEvas[0].dataValues.eva_stu_content%></textarea>
                    <input type="file" name="eva_stu_images" multiple="multiple"></input>
                    <input type="submit" value="Finish"></input>
                </form>

@@ -2,7 +2,7 @@
 <html>
     <header>
         <meta charset="UTF-8">
-        <title>新课评</title>
+        <title>课评修改</title>
         <% include ../Common/header %>
     </header>
     <body>
@@ -12,7 +12,7 @@
                     <label>标题：</label>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text"  class="form-control"  name="eva_title" placeholder="标题" required></input>
+                    <input type="text"  class="form-control"  name="eva_title" placeholder="标题" required value="<%=evaluate.eva_title%>"></input>
                 </div>
             </div>
             <div class="row">
@@ -21,7 +21,9 @@
                 </div>
                 <div class="col-sm-3">
                     <select name="eva_type" class="form-control"> 
-            <option value="机构课">机构课</option><option value="校外课">校外课</option></select>
+                        <option value="机构课" <% if(evaluate.eva_type == '机构课'){ %>selected<% } %>>机构课</option>
+                        <option value="校外课" <% if(evaluate.eva_type == '校外课'){ %>selected<% } %>>校外课</option>
+                    </select>
                 </div>
             </div>
             <div class="row">
@@ -29,11 +31,11 @@
                     <label>整体课评价：</label>
                 </div>
                 <div class="col-sm-3">
-                    <textarea required name="eva_content"  class="form-control" rows="10"></textarea>
+                    <textarea required name="eva_content"  class="form-control" rows="10"><%=evaluate.eva_content%></textarea>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">添加</button>
-            <input type="hidden" name="eva_class_id" value='<%=class_id%>'>
+            <button type="submit" class="btn btn-primary">提交</button>
+            <input type="hidden" name="id" value='<%=evaluate.id%>'>
         </form>
         
 

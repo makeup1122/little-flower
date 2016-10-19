@@ -22,22 +22,23 @@ sequelize.sync();
 // sequelize.drop();
 
 //CountAll
-exports.findAndCountAll = function(callback) {
-    Class.findAndCountAll({}).then(function(result) {
-        callback(result);
-    });
-};
-exports.findOne = function(id,callback){
-    Class.findById(id).then(function(result){
-        callback(result);  
-    });
-};
-exports.InsertOne = function(data){
-    Class.create(data);
-}
+// exports.findAndCountAll = function(callback) {
+//     Class.findAndCountAll({}).then(function(result) {
+//         callback(result);
+//     });
+// };
+// exports.findOne = function(id,callback){
+//     Class.findById(id).then(function(result){
+//         callback(result);  
+//     });
+// };
+// exports.InsertOne = function(data){
+//     Class.create(data);
+// }
 // Class.findAndCountAll();
 //Setter
 // Class.create({ 'cla_name': 'class1', 'cla_teacher': 'flower1' });
 // Class.create({ 'cla_name': 'class2', 'cla_teacher': 'flower2' });
 // Class.create({ 'cla_name': 'class3', 'cla_teacher': 'flower3' });
 // console.log(this.getDataValue('cla_name'));
+module.exports = Class;

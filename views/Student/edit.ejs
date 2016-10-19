@@ -16,9 +16,15 @@
         </div>
         <div class="row">
             <div class="col-sm-1"><label>姓别：</label></div>
-            <div class="col-sm-3">
-                <input type="radio" name="stu_sex" value="男" id='radio_male'   <% if(student.dataValues.stu_sex=='男'){ %> checked="checked" <% } %>/><label for="radio_male">男</label>
-                <input type="radio" name="stu_sex" value="女" id='radio_female' <% if(student.dataValues.stu_sex=='女'){ %> checked='checked' <% } %>/><label for="radio_female">女</label>
+            <div class="col-sm-3 btn-group" data-toggle="buttons">
+                <label class="btn btn-default  <% if(student.dataValues.stu_sex=='男'){ %> active <% } %>">
+                    <input type="radio" name="stu_sex" value="男" id='radio_male' <% if(student.dataValues.stu_sex=='男'){ %> checked='checked' <% } %>/>男生
+                </label>
+                <label class="btn btn-default <% if(student.dataValues.stu_sex=='女'){ %> active <% } %>">
+                    <input type="radio" name="stu_sex" value="女" id='radio_female' <% if(student.dataValues.stu_sex=='女'){ %> checked='checked' <% } %>/>女生
+                </label>
+                <!--<input type="radio" name="stu_sex" value="男" id='radio_male'   <% if(student.dataValues.stu_sex=='男'){ %> checked="checked" <% } %>/><label for="radio_male">男</label>-->
+                <!--<input type="radio" name="stu_sex" value="女" id='radio_female' <% if(student.dataValues.stu_sex=='女'){ %> checked='checked' <% } %>/><label for="radio_female">女</label>-->
             </div>
         </div>
         <div class="row">

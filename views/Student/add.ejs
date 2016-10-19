@@ -9,15 +9,22 @@
 <body>
     <form action="" method="post" role="form">
         <div class="row">
-            <div class="col-sm-1"><label>姓名：</label></div>
-            <div class="col-sm-3">
+            <div class="col-sm-1 col-lg-1"><label>姓名：</label></div>
+            <div class="col-sm-4 col-lg-3" >
                 <input type="text" class="form-control" name="stu_name" placeholder="输入姓名" required></input>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-1"><label>姓别：</label></div>
-            <div class="col-sm-3"><input type="radio" name="stu_sex" value="男" id='radio_male'/><label for="radio_male">男</label>
-            <input type="radio" name="stu_sex" value="女" id='radio_female'/><label for="radio_female">女</label>
+            <div class="col-sm-3 btn-group" data-toggle="buttons">
+                <label class="btn btn-default">
+                    <input type="radio" name="stu_sex" value="男" id='radio_male'/>男生
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="stu_sex" value="女" id='radio_female'/>女生
+                </label>
+                <!--<input type="radio" name="stu_sex" value="男" id='radio_male'/><label for="radio_male">男</label>-->
+                <!--<input type="radio" name="stu_sex" value="女" id='radio_female'/><label for="radio_female">女</label>-->
             </div>
         </div>
         <div class="row">

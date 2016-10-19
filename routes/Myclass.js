@@ -12,7 +12,7 @@ var Evaluate = require("../application/Models/EvaluateModel");
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     if(!isNaN(id)){
-        TClass.findOne(id,function(result){
+        TClass.findById(id).then(function(result){
             Student.findAll({where:{'class_id':id}}).then(function(stu_result) {
                 Evaluate.findAll({where:{'eva_class_id':id}}).then(function(eva_result){
                     res.render('Class/index',{'class_info':result,'students':stu_result,'evaluates':eva_result});
@@ -33,12 +33,11 @@ router.route('/add')
     res.render('Class/add');
 })
 .post(function(req,res,next){
-    TClass.InsertOne(req.body);
+    TClass.create(req.body);
     res.redirect('/');
 });
 //student
 router.get('/:id/students',function(req,res,next){
-    console.log(req.params.id);
     res.send('dasdasdas');
     // Student.findAll().then(function(students){
     //     res.render('Student/list');

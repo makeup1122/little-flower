@@ -50,9 +50,6 @@ router.get("/:id",function(req,res,next){
     }
 });
 
-//单个文件
-// var upload = multer({ dest: 'files/' })
-var upload = multer({storage:storage});
 router.route('/add')
 .all(function(req,res,next){
     next();
@@ -62,25 +59,68 @@ router.route('/add')
 })
 .post(function(req,res,next){
     Evaluate.create(req.body).then(function(record){
-        res.redirect('/evaluate/addStu?class_id='+req.body.eva_class_id+"&eva_id="+record.id);
+        res.redirect('/class/'+req.body.eva_class_id);
     });
 });
 
-
-
-
-router.get('/addStu',function(req,res){
-    Student.findAll({where:{'class_id':req.query.class_id}}).then(function(stu_result) {
-        res.render('Evaluate/addStu',{'class_id':req.query.class_id,'students':stu_result,'eva_id':req.query.eva_id});
-     });
+//Edit
+router.route('/edit/:id')
+.all(function(req,res,next){
+    next();
+})
+.get(function(req,res,next){
+    var id = req.params.id;
+    Evaluate.findById(id).then(function(evaluate){
+       res.render('Evaluate/edit',{evaluate:evaluate.dataValues});
+    });
+})
+.post(function(req,res,next){
+    Evaluate.update(req.body,{where:{id:req.body.id}}).then(function(result){
+       res.redirect('/class/'+result.dataValues.class_id); 
+    });
 });
-router.post('/addStu',upload.array('eva_stu_images',12),function(req,res,next){
+
+//删除
+router.route('/delete/:id')
+.all(function(req,res,next){
+    next();
+})
+.get(function(req,res,next){
+    Evaluate.findById(req.params.id).then(function(result){
+       result.destroy().then(function(result){
+           res.redirect('/class/'+result.dataValues.eva_class_id);
+       }) ;
+    });
+})
+.post(function(req,res,next){
+    next();
+});
+
+
+
+//单个文件
+// var upload = multer({ dest: 'files/' })
+var upload = multer({storage:storage});
+router.route('/addStu/:eva_id')
+.all(function(req,res,next){
+    next();
+})
+.get(function(req,res){
+    Evaluate.findById(req.params.eva_id).then(function(evaluate){
+        Student.findAll({where:{'class_id':evaluate.dataValues.eva_class_id},include:[{model:StuEva,where:{evaluateId:evaluate.id},required:false}]}).then(function(students_eva) {
+            console.log(students_eva[1].dataValues.stuEvas[0].dataValues.eva_stu_content);
+            res.render('Evaluate/addStu',{students:students_eva,evaluate:evaluate});
+         }); 
+    });
+});
+router.post("/addStu",upload.array('eva_stu_images',12),function(req,res,next){
     var files = {};
-    for(var i = 0 ; i<req.files.length;i++){
-        files[i] = "/"+req.files[i].path + '.jpg';
-    }
-    req.body.eva_stu_images = JSON.stringify(files);
+    // for(var i = 0 ; i<req.files.length;i++){
+    //     files[i] = "/"+req.files[i].path + '.jpg';
+    // }
+    // req.body.eva_stu_images = JSON.stringify(files);
     StuEva.create(req.body);
-    res.redirect('/evaluate/addStu?class_id='+req.body.eva_class_id+"&eva_id="+req.body.eva_id);
+    res.redirect('/Evaluate/addStu/'+req.body.evaluateId);
 });
+
 module.exports = router;

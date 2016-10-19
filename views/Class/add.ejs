@@ -1,4 +1,17 @@
-<form method="post" action="/class/add">
-    <label for="cla_name">班级名：</label><input type="text" name="cla_name"></input>
-    <input type="submit" vlaue="添加"></input>
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="UTF-8">
+    <title>新学生</title>
+    <% include ../Common/header %>
+</header>
+<body>
+<form method="post" action="/class/add" role="form">
+    <div class="row">
+        <div class="col-sm-1 col-lg-1"><label for="cla_name">班级名：</label></div>
+        <div class="col-sm-4 col-lg-2"><input type="text" class="form-control" name="cla_name" required></input></div>
+        <div class="col-sm-4 col-lg-2"><button type="submit" class="btn btn-primary">添加</button></div>
+    </div>
+    <div class="row"></div>
 </form>
+</body>

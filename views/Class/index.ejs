@@ -9,6 +9,7 @@
 </header>
 
 <body>
+   <% include ../Common/breadcrumb %>
    <div class="page-header">
       <h3>
          <%=class_info.dataValues.cla_name%>
@@ -46,11 +47,11 @@
                            <%=students[i].get('stu_birthday')%>
                         </td>
                         <td>
-                           <%=students[i].dataValues.createdAt%>
+                           <!--<%=students[i].dataValues.createdAt%>-->
                         </td>
                         <td>
                            <a href="/student/edit/<%=students[i].dataValues.id%>" class=" btn btn-warning">编辑</a>
-                           <a href="###" class=" btn btn-danger">删除</a>
+                           <a href="/student/delete/<%=students[i].dataValues.id%>" class=" btn btn-danger">删除</a>
                         </td>
                      </tr>
                      <% }%>
@@ -72,6 +73,7 @@
                <thead>
                   <tr>
                      <th>编号</th>
+                     <th>类型</th>
                      <th>题目</th>
                      <th>课评</th>
                      <th>时间</th>
@@ -82,8 +84,13 @@
                   <% for(var i=0; i<evaluates.length;i++){%>
                      <tr>
                         <td>
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=evaluates[i].id%>">
+                              <%=evaluates[i].id%><% if(evaluates[i].dataValues.eva_type =="机构课"){%> +<% } %>
+                           </a>
+                        </td>
+                         <td>
                            <a href="/evaluate/<%=evaluates[i].id%>">
-                              <%=evaluates[i].id%>
+                              <%=evaluates[i].eva_type%>
                            </a>
                         </td>
                         <td>
@@ -97,15 +104,25 @@
                            </a>
                         </td>
                         <td>
-                           <a href="/evaluate/<%=evaluates[i].id%>">
-                              <%=evaluates[i].createdAt%>
-                           </a>
+                           <!--<a href="/evaluate/<%=evaluates[i].id%>">-->
+                           <!--   <%=evaluates[i].createdAt%>-->
+                           <!--</a>-->
                         </td>
                         <td>
-                           <a class="btn btn-warning" href="/evaluate/addStu?class_id=<%=evaluates[i].dataValues.eva_class_id%>&eva_id=<%=evaluates[i].dataValues.id%>">编辑</a>
-                           <a herf="###" class=" btn btn-danger">删除</a>
+                           <a class="btn btn-warning" href="/evaluate/edit/<%=evaluates[i].dataValues.id%>">编辑</a>
+                           <a class="btn btn-danger"  href="/evaluate/delete/<%=evaluates[i].dataValues.id%>">删除</a>
+                           <% if(evaluates[i].dataValues.eva_type =="机构课"){%>
+                              <a class="btn btn-info"  href="/evaluate/addStu/<%=evaluates[i].dataValues.id%>">课评</a>
+                           <% } %>
                            </td>
                      </tr>
+                     <% if(evaluates[i].dataValues.eva_type =="机构课"){%>
+                     <tr  id="collapse<%=evaluates[i].id%>" class="panel-collapse collapse">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                     </tr>
+                        <% }%>
                      <% }%>
                </tbody>
             </table>
