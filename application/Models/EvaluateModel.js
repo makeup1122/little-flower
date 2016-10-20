@@ -4,7 +4,7 @@ var sequelize = new Sequelize(config.database,config.username,config.password);
 var Evaluate =  sequelize.define('evaluate',{
       'eva_title':Sequelize.STRING,
       'eva_type':Sequelize.STRING,
-      'eva_content':Sequelize.TEXT('tiny'),
+      'eva_content':Sequelize.TEXT,
       'eva_class_id':Sequelize.INTEGER
 });
 Evaluate.sync();

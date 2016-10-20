@@ -9,7 +9,14 @@
 </header>
 
 <body>
-   <% include ../Common/breadcrumb %>
+   <ol class="breadcrumb">
+      <li><a href="/">首页</a></li>
+      <li>
+         <a class="active">
+            <%=class_info.dataValues.cla_name%>
+         </a>
+      </li>
+   </ol>
    <div class="page-header">
       <h3>
          <%=class_info.dataValues.cla_name%>
@@ -75,7 +82,7 @@
                      <th>编号</th>
                      <th>类型</th>
                      <th>题目</th>
-                     <th>课评</th>
+                     <!--<th>课评</th>-->
                      <th>时间</th>
                      <th>操作</th>
                   </tr>
@@ -83,25 +90,16 @@
                <tbody>
                   <% for(var i=0; i<evaluates.length;i++){%>
                      <tr>
-                        <td>
-                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=evaluates[i].id%>">
-                              <%=evaluates[i].id%><% if(evaluates[i].dataValues.eva_type =="机构课"){%> +<% } %>
-                           </a>
+                        <td data-toggle="collapse" data-parent="#accordion" data-target="#collapse<%=evaluates[i].id%>">
+                           <%=evaluates[i].id%>
                         </td>
-                         <td>
-                           <a href="/evaluate/<%=evaluates[i].id%>">
-                              <%=evaluates[i].eva_type%>
-                           </a>
+                        <td data-toggle="collapse" data-parent="#accordion" data-target="#collapse<%=evaluates[i].id%>">
+                           <%=evaluates[i].eva_type%>
                         </td>
-                        <td>
-                           <a href="/evaluate/<%=evaluates[i].id%>">
+                        <td data-toggle="collapse" data-parent="#accordion" data-target="#collapse<%=evaluates[i].id%>">
+                           <div class="evaluate_tr" data-toggle="tooltip" title="<h5>击查重课评内容</h5>" data-placement="bottom">
                               <%=evaluates[i].eva_title%>
-                           </a>
-                        </td>
-                        <td>
-                           <a href="/evaluate/<%=evaluates[i].id%>">
-                              <%=evaluates[i].eva_content%>
-                           </a>
+                           </div>
                         </td>
                         <td>
                            <!--<a href="/evaluate/<%=evaluates[i].id%>">-->
@@ -109,20 +107,25 @@
                            <!--</a>-->
                         </td>
                         <td>
+                           <a class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=evaluates[i].id%>">预览</a>
                            <a class="btn btn-warning" href="/evaluate/edit/<%=evaluates[i].dataValues.id%>">编辑</a>
-                           <a class="btn btn-danger"  href="/evaluate/delete/<%=evaluates[i].dataValues.id%>">删除</a>
+                           <!---->
+                           <button class="btn btn-danger modal_delete_btn" data-toggle="modal" data-target="#deleteModal" data-href="/evaluate/delete/<%=evaluates[i].dataValues.id%>">删除</button>
                            <% if(evaluates[i].dataValues.eva_type =="机构课"){%>
-                              <a class="btn btn-info"  href="/evaluate/addStu/<%=evaluates[i].dataValues.id%>">课评</a>
-                           <% } %>
-                           </td>
+                              <a class="btn btn-info" href="/evaluate/addStu/<%=evaluates[i].dataValues.id%>">学生课评</a>
+                              <% } %>
+                        </td>
                      </tr>
-                     <% if(evaluates[i].dataValues.eva_type =="机构课"){%>
-                     <tr  id="collapse<%=evaluates[i].id%>" class="panel-collapse collapse">
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                     <tr>
+                        <td colspan="5">
+                           <div id="collapse<%=evaluates[i].id%>" class="panel-collapse collapse">
+                              <div class="panel-body">
+                                 <%=evaluates[i].eva_content%>
+                              </div>
+                           </div>
+                        </td>
+
                      </tr>
-                        <% }%>
                      <% }%>
                </tbody>
             </table>
@@ -132,6 +135,42 @@
          <a class="btn btn-primary" href="/evaluate/add?class_id=<%=class_info.dataValues.id%>">添加课评</a>
       </div>
    </div>
+   <!-- 模态框（Modal） -->
+   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+               <h4 class="modal-title" id="myModalLabel">
+                  警告!
+               </h4>
+            </div>
+            <div class="modal-body">
+               是否确认删除？
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">取消
+				</button>
+               <a class="modal_delete_a btn btn-danger">删除</a>
+            </div>
+         </div>
+         <!-- /.modal-content -->
+      </div>
+      <!-- /.modal -->
 </body>
+<script>
+   $(function() {
+      $(".evaluate_tr").tooltip({
+         html: true
+      });
+   });
+   //课评Modal uasge
+   $('button.modal_delete_btn').on('click', function () {
+      var href = $(this).attr('data-href');
+     $('a.modal_delete_a').attr('href',href);
+})
+</script>
 
 </html>

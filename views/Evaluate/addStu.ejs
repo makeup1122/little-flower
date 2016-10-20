@@ -2,22 +2,52 @@
 <html>
     <header>
         <meta charset="UTF-8">
-        <title></title>
+        <title>课评</title>
+        <% include ../Common/header %>
+        <script src="/js/fileUpload/js/vendor/jquery.ui.widget.js"></script>
+        <script src="/js/fileUpload/js/jquery.iframe-transport.js"></script>
+        <script src="/js/fileUpload/js/jquery.fileupload.js"></script>
     </header>
     <body>
-        <ul>
-           <% for(var i=0; i<students.length; i++) {%>
-               <form action="/evaluate/addStu" method="post" enctype="multipart/form-data">
+        <ol class="breadcrumb">
+           <li><a href="/">主页</a></li>
+           <li><a href="/class/<%=evaluate.dataValues.eva_class_id%>">班级</a></li>
+           <li><a href="###" class="active">写课评</a></li>
+       </ol>
+        <ul class="nav nav-tabs" id="myTab">
+            <% for(var i=0; i<students.length; i++) {%>
+           <li><a href="#student-<%=students[i].dataValues.id%>" data-toggle="tab"><%=students[i].dataValues.stu_name%></a></li>
+           <% } %>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            
+        <% for(var i=0; i<students.length; i++) {%>
+        <div class="tab-pane fade" id="student-<%=students[i].dataValues.id%>">
+               <form role="form" action="/evaluate/addStu" method="post" enctype="multipart/form-data">
                    <input type="hidden" name="evaluateId" value="<%=evaluate.dataValues.id%>"></input>
                    <input type="hidden" name="studentId" value="<%=students[i].dataValues.id%>"></input>
-                   
-                   <a href="/student/<%=students[i].dataValues.id%>"><%=students[i].dataValues.stu_name%></a>
-                   <textarea name="eva_stu_content"><%=students[i].dataValues.stuEvas[0].dataValues.eva_stu_content%></textarea>
-                   <input type="file" name="eva_stu_images" multiple="multiple"></input>
-                   <input type="submit" value="Finish"></input>
+                   <div class="row">
+                       <label class="col-sm-12 col-md-6 col-lg-3">课评：</label>
+                       <% if(students[i].dataValues.stuEvas != ''){ %>
+                       <textarea  name="eva_stu_content" class="form-control " rows="10" ><%=students[i].dataValues.stuEvas[0].dataValues.eva_stu_content%></textarea>
+                       <% }else{ %>
+                       <textarea  name="eva_stu_content" class="form-control " rows="10" ></textarea>
+                       <% } %>
+                   </div>
+                   <input type="file" name="eva_stu_images" multiple="multiple" id="fileupload"></input>
+                   <button type="submit" class="btn btn-primary" >提  交</button>
                </form>
+               </div>
            <% }%>
-        </ul>
+        </div>
     </body>
+    <script>
+        $('#myTab a').click(function(e){
+            e.preventDefault();
+            $(this).tab('show');
+        })
+        $('#myTab a:first').tab('show');
+         $('#fileupload').fileupload({});
+    </script>
 </html>
         

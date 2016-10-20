@@ -76,7 +76,7 @@ router.route('/edit/:id')
 })
 .post(function(req,res,next){
     Evaluate.update(req.body,{where:{id:req.body.id}}).then(function(result){
-       res.redirect('/class/'+result.dataValues.class_id); 
+       res.redirect('/class/'+req.body.class_id); 
     });
 });
 
@@ -108,7 +108,8 @@ router.route('/addStu/:eva_id')
 .get(function(req,res){
     Evaluate.findById(req.params.eva_id).then(function(evaluate){
         Student.findAll({where:{'class_id':evaluate.dataValues.eva_class_id},include:[{model:StuEva,where:{evaluateId:evaluate.id},required:false}]}).then(function(students_eva) {
-            console.log(students_eva[1].dataValues.stuEvas[0].dataValues.eva_stu_content);
+            // console.log("["+students_eva[0].dataValues.stuEvas[0].dataValues.eva_stu_content+"]");
+            // res.send(students_eva[0].stuEvas);
             res.render('Evaluate/addStu',{students:students_eva,evaluate:evaluate});
          }); 
     });
@@ -119,8 +120,14 @@ router.post("/addStu",upload.array('eva_stu_images',12),function(req,res,next){
     //     files[i] = "/"+req.files[i].path + '.jpg';
     // }
     // req.body.eva_stu_images = JSON.stringify(files);
-    StuEva.create(req.body);
-    res.redirect('/Evaluate/addStu/'+req.body.evaluateId);
+    StuEva.findOne({where:{studentId:req.body.studentId,evaluateId:req.body.evaluateId}}).then(function(result,error){
+        if(result == null){
+            StuEva.create(req.body);   
+        }else{
+            StuEva.update(req.body,{where:{studentId:req.body.studentId,evaluateId:req.body.evaluateId}});
+        }
+        res.redirect('/Evaluate/addStu/'+req.body.evaluateId); 
+    });
 });
 
 module.exports = router;
