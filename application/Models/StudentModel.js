@@ -20,12 +20,16 @@ var Student = sequelize.define('student', {
     'stu_birthday': {
         type: Sequelize.DATEONLY,
         get: function() {
-            var date = new Date(this.getDataValue('stu_birthday'));
-            var month = date.getMonth() + 1;
-            month = month >= 10 ? month : "0" + month;
-            var day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
-            var year = date.getFullYear();
-            return year + '-' + month + '-' + day;
+            if(this.getDataValue('stu_birthday') != '0000-00-00'){
+                var date = new Date(this.getDataValue('stu_birthday'));
+                var month = date.getMonth() + 1;
+                month = month >= 10 ? month : "0" + month;
+                var day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
+                var year = date.getFullYear();
+                return year + '-' + month + '-' + day;   
+            }else{
+                return '';
+            }
         }
     },
     'class_id': Sequelize.INTEGER,

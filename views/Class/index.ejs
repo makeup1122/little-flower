@@ -1,12 +1,12 @@
 <!DOCTYPE>
 <html>
-<header>
+<head>
    <meta charset="UTF-8">
    <title>
       <%=class_info.dataValues.cla_name%>
    </title>
    <% include ../Common/header %>
-</header>
+</head>
 
 <body>
    <ol class="breadcrumb">
@@ -27,7 +27,7 @@
       <div class="panel-heading">
          学生们
       </div>
-      <div class="panel-body">
+      <!--<div class="panel-body">-->
          <div class="table-responsive">
             <table class="table table-condensed table-hover">
                <thead>
@@ -54,18 +54,25 @@
                            <%=students[i].get('stu_birthday')%>
                         </td>
                         <td>
-                           <!--<%=students[i].dataValues.createdAt%>-->
+                           <% var date = new Date(students[i].dataValues.createdAt);
+                var month = date.getMonth() + 1;
+                month = month >= 10 ? month : "0" + month;
+                var day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
+                var year = date.getFullYear();
+                var date1= year + '-' + month + '-' + day;
+                           %>
+                           <%=date1%>
                         </td>
                         <td>
                            <a href="/student/edit/<%=students[i].dataValues.id%>" class=" btn btn-warning">编辑</a>
-                           <a href="/student/delete/<%=students[i].dataValues.id%>" class=" btn btn-danger">删除</a>
+                           <!--<a href="/student/delete/<%=students[i].dataValues.id%>" class=" btn btn-danger">删除</a>-->
                         </td>
                      </tr>
                      <% }%>
                </tbody>
             </table>
          </div>
-      </div>
+      <!--</div>-->
       <div class="panel-footer">
          <a class="btn btn-primary" href="/student/add?class_id=<%=class_info.dataValues.id%>">添加学生</a>
       </div>
@@ -74,16 +81,16 @@
       <div class="panel-heading">
          课评
       </div>
-      <div class="panel-body">
+      <!--<div class="panel-body">-->
          <div class="table-responsive">
             <table class="table table-condensed table-hover">
                <thead>
                   <tr>
-                     <th>编号</th>
+                     <!--<th>编号</th>-->
+                     <th>时间</th>
                      <th>类型</th>
                      <th>题目</th>
                      <!--<th>课评</th>-->
-                     <th>时间</th>
                      <th>操作</th>
                   </tr>
                </thead>
@@ -91,7 +98,15 @@
                   <% for(var i=0; i<evaluates.length;i++){%>
                      <tr>
                         <td data-toggle="collapse" data-parent="#accordion" data-target="#collapse<%=evaluates[i].id%>">
-                           <%=evaluates[i].id%>
+                           
+                           <% var date = new Date(evaluates[i].createdAt);
+                var month = date.getMonth() + 1;
+                month = month >= 10 ? month : "0" + month;
+                var day = date.getDate() >= 10 ? date.getDate() : "0" + date.getDate();
+                var year = date.getFullYear();
+                var createdAt= year + '-' + month + '-' + day;
+                           %>
+                           <%=createdAt%>
                         </td>
                         <td data-toggle="collapse" data-parent="#accordion" data-target="#collapse<%=evaluates[i].id%>">
                            <%=evaluates[i].eva_type%>
@@ -100,11 +115,6 @@
                            <div class="evaluate_tr" data-toggle="tooltip" title="<h5>击查重课评内容</h5>" data-placement="bottom">
                               <%=evaluates[i].eva_title%>
                            </div>
-                        </td>
-                        <td>
-                           <!--<a href="/evaluate/<%=evaluates[i].id%>">-->
-                           <!--   <%=evaluates[i].createdAt%>-->
-                           <!--</a>-->
                         </td>
                         <td>
                            <a class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=evaluates[i].id%>">预览</a>
@@ -130,7 +140,7 @@
                </tbody>
             </table>
          </div>
-      </div>
+      <!--</div>-->
       <div class="panel-footer">
          <a class="btn btn-primary" href="/evaluate/add?class_id=<%=class_info.dataValues.id%>">添加课评</a>
       </div>
