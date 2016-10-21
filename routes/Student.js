@@ -8,11 +8,16 @@ var stuEvas = require('../application/Models/StuevaModel');
 router.get('/:id',function(req,res,next){
     if(!isNaN(req.params.id)){
         Student.findOne({
-            where:{id:req.params.id}
+            where:{id:req.params.id},
+            include:[{model:stuEvas,required:false}]
         }).then(function(student){
-            console.log(student);
-            console.log(student.dataValues);
-            res.render('Student/info',{'student':student});
+            //判断客户端类型
+            var client_type = req.headers['user-agent']; 
+            var mobile = false;
+            if (/mobile/i.test(client_type)) {
+                mobile = true;
+            }
+            res.render('Student/info',{'student':student,mobile:mobile});
         });
     }else{
         next();

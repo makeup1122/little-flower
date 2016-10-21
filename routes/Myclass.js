@@ -14,8 +14,11 @@ router.get('/:id', function(req, res, next) {
     if(!isNaN(id)){
         TClass.findById(id).then(function(result){
             Student.findAll({where:{'class_id':id}}).then(function(stu_result) {
-                // console.log(stu_result);
-                Evaluate.findAll({where:{'eva_class_id':id}}).then(function(eva_result){
+                Evaluate.findAll({
+                    where:{'eva_class_id':id},
+                    order: [ ['eva_type', 'DESC'],
+                     ['updatedAt', 'DESC'],]
+                }).then(function(eva_result){
                     res.render('Class/index',{'class_info':result,'students':stu_result,'evaluates':eva_result});
                 })
             });

@@ -24,10 +24,10 @@ var mkdirs = function(dirpath, callback) {
         }
     });
 };
-
+//本地
 var storage = multer.diskStorage({
     destination:function(req,file,cb){
-        var upload_path = path.join('files/' ,req.body.eva_class_id , "/",req.body.eva_student_id ,"/", dt.toFormat("YYYYMMDD"));
+        var upload_path = path.join('files/' ,req.body.evaluateId , "/",req.body.studentId ,"/", dt.toFormat("YYYYMMDD"));
         mkdirs(upload_path,function(){
             cb(null,upload_path);
         });
@@ -114,12 +114,9 @@ router.route('/addStu/:eva_id')
          }); 
     });
 });
-router.post("/addStu",upload.array('eva_stu_images',12),function(req,res,next){
-    var files = {};
-    // for(var i = 0 ; i<req.files.length;i++){
-    //     files[i] = "/"+req.files[i].path + '.jpg';
-    // }
-    // req.body.eva_stu_images = JSON.stringify(files);
+router.post("/addStu",upload.fields([{name:'eva_stu_images',maxCount:12},{name:'eva_stu_painting',maxCount:12}]),function(req,res,next){
+    req.body.eva_stu_images = req.files['eva_stu_images'];
+    req.body.eva_stu_painting = req.files['eva_stu_painting'];
     StuEva.findOne({where:{studentId:req.body.studentId,evaluateId:req.body.evaluateId}}).then(function(result,error){
         if(result == null){
             StuEva.create(req.body);   

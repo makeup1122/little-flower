@@ -2,7 +2,7 @@
 <html>
     <header>
         <meta charset="UTF-8">
-        <title>课评</title>
+        <title>写课评</title>
         <% include ../Common/header %>
         <script src="/js/fileUpload/js/vendor/jquery.ui.widget.js"></script>
         <script src="/js/fileUpload/js/jquery.iframe-transport.js"></script>
@@ -34,6 +34,7 @@
                        <textarea  name="eva_stu_content" class="form-control " rows="10" ></textarea>
                        <% } %>
                    </div>
+                   <input type="file" name="eva_stu_painting" multiple="multiple" id="fileupload"></input>
                    <input type="file" name="eva_stu_images" multiple="multiple" id="fileupload"></input>
                    <button type="submit" class="btn btn-primary" >提  交</button>
                </form>
@@ -45,9 +46,9 @@
         $('#myTab a').click(function(e){
             e.preventDefault();
             $(this).tab('show');
-        })
+        });
         $('#myTab a:first').tab('show');
-         $('#fileupload').fileupload({});
+        // $('#fileupload').fileupload({});
     </script>
 </html>
         

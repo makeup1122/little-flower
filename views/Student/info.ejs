@@ -1,6 +1,69 @@
-<%=student.dataValues.id%>
-<%=student.dataValues.class_id%>
-<%=student.dataValues.stu_name%>
-<%=student.dataValues.stu_sex%>
-<%=student.dataValues.stu_birthday%>
-<%=student.dataValues.createdAt%>
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>
+        <%=student.dataValues.stu_name%>
+    </title>
+    <% include ../Common/header %>
+</head>
+
+<body>
+    <ol class="breadcrumb">
+        <li><a href="/">主页</a></li>
+        <li><a href="/class/<%=student.dataValues.class_id%>">班级</a></li>
+        <li>
+            <a href="###" class="active">
+                <%=student.dataValues.stu_name%>
+            </a>
+        </li>
+    </ol>
+    <% for(var i = 0 ; i< student.stuEvas.length;i++){ %>
+        <div class="container">
+            <div class="row">
+                <% for(var x in  student.stuEvas[i].eva_stu_images){ %>
+                    <div class="col-sm-6 col-md-3 col-lg-1">
+                        <% if(!mobile){ %>
+                             <a href="#" class="thumbnail" data-toggle="modal" data-target="#eva_stu_images<%=student.stuEvas[i].id%><%=x%>">
+                                <img src="<%=student.stuEvas[i].eva_stu_images[x]%>" style="max-width: 100%;"></img>
+                            </a>
+                        <% }else{%>
+                            <img  class="thumbnail" 
+                            
+                            src="<%=student.stuEvas[i].eva_stu_images[x]%>" style="max-width: 100%;"></img>
+                        <% } %>
+                    </div>
+                    <div class="modal fade" id="eva_stu_images<%=student.stuEvas[i].id%><%=x%>" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <a href="#" class="eva_stu_images_hide">
+                                    <img class="img-responsive" src="<%=student.stuEvas[i].eva_stu_images[x]%>">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+            <div class='row'>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p style="word-break:break-all">
+                                <%=student.stuEvas[i].eva_stu_content %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+</body>
+<script>
+   
+    $('a.eva_stu_images_hide').click(function(e) {
+        e.preventDefault();
+        $(this).parent().parent().parent().modal('hide')
+    });
+</script>
+
+</html>
