@@ -7,8 +7,7 @@ var config = require('../config/database');
 var sequelize = new Sequelize(config.database,config.username,config.password);
 var Student = require("../application/Models/StudentModel");
 var Evaluate = require("../application/Models/EvaluateModel");
-  
-// sequelize.sync();
+
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
     if(!isNaN(id)){

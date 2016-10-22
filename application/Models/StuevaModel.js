@@ -8,7 +8,7 @@ var Evaluate = require("./EvaluateModel");
 var Stueva = sequelize.define('stuEva',{
       // 'eva_id':Sequelize.INTEGER,
       'eva_stu_content':{
-            type:Sequelize.TEXT('tiny'),
+            type:Sequelize.TEXT,
             get:function(){
                   return  this.getDataValue('eva_stu_content');
             }    
@@ -25,7 +25,7 @@ var Stueva = sequelize.define('stuEva',{
                   }
                   this.setDataValue('eva_stu_painting',JSON.stringify(files));
                   }else{
-                        this.setDataValue('eva_stu_painting','');
+                        // this.setDataValue('eva_stu_painting','');
                   }
             },
             get:function(){
@@ -48,7 +48,7 @@ var Stueva = sequelize.define('stuEva',{
                   }
                   this.setDataValue('eva_stu_images',JSON.stringify(files));
                   }else{
-                        this.setDataValue('eva_stu_images','');
+                        // this.setDataValue('eva_stu_images','');
                   }
             },
             get:function(){
