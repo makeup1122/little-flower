@@ -7,6 +7,7 @@ var Evaluate = require("../application/Models/EvaluateModel");
 var Student = require("../application/Models/StudentModel");
 var StuEva  = require("../application/Models/StuevaModel");
 var multer  = require('multer');
+// var token = require('../qiniu');
 const path = require('path');
 const fs = require('fs');
 require('date-utils');
@@ -110,7 +111,7 @@ router.route('/addStu/:eva_id')
         Student.findAll({where:{'class_id':evaluate.dataValues.eva_class_id},include:[{model:StuEva,where:{evaluateId:evaluate.id},required:false}]}).then(function(students_eva) {
             // console.log("["+students_eva[0].dataValues.stuEvas[0].dataValues.eva_stu_content+"]");
             // res.send(students_eva[0].stuEvas);
-            res.render('Evaluate/addStu',{students:students_eva,evaluate:evaluate});
+            res.render('Evaluate/addStu',{students:students_eva,evaluate:evaluate,token:''});
          }); 
     });
 });
