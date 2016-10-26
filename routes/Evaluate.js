@@ -7,7 +7,6 @@ var Evaluate = require("../application/Models/EvaluateModel");
 var Student = require("../application/Models/StudentModel");
 var StuEva  = require("../application/Models/StuevaModel");
 var multer  = require('multer');
-// var token = require('../qiniu');
 const path = require('path');
 const fs = require('fs');
 require('date-utils');
@@ -97,24 +96,34 @@ router.route('/delete/:id')
     next();
 });
 
-
+//跳转路由
+router.get('/addStu/:eva_id',function(req,res){
+    Evaluate.findById(req.params.eva_id).then(function(evaluate){
+        Student.findAll({where:{'class_id':evaluate.dataValues.eva_class_id}}).then(function(students) {
+            res.redirect('/Evaluate/addStu/'+req.params.eva_id+'/student/'+students[0].dataValues.id);
+         }); 
+    });
+})
 
 //单个文件
 // var upload = multer({ dest: 'files/' })
 var upload = multer({storage:storage});
-router.route('/addStu/:eva_id')
+
+router.route('/addStu/:eva_id/student/:stu_id')
 .all(function(req,res,next){
     next();
 })
 .get(function(req,res){
     Evaluate.findById(req.params.eva_id).then(function(evaluate){
-        Student.findAll({where:{'class_id':evaluate.dataValues.eva_class_id},include:[{model:StuEva,where:{evaluateId:evaluate.id},required:false}]}).then(function(students_eva) {
-            // console.log("["+students_eva[0].dataValues.stuEvas[0].dataValues.eva_stu_content+"]");
-            // res.send(students_eva[0].stuEvas);
-            res.render('Evaluate/addStu',{students:students_eva,evaluate:evaluate,token:''});
+        Student.findAll({where:{'class_id':evaluate.dataValues.eva_class_id}}).then(function(students) {
+            Student.findOne({where:{'id':req.params.stu_id},include:[{model:StuEva,where:{evaluateId:req.params.eva_id},required:false}]}).then(function(stu_evaluate){
+                // console.log(stu_evaluate.dataValues.stuEvas);
+                res.render('Evaluate/addStu',{students:students,evaluate:evaluate,stu_evaluate:stu_evaluate});
+            });
          }); 
     });
 });
+
 router.post("/addStu",upload.fields([{name:'eva_stu_images',maxCount:12},{name:'eva_stu_painting',maxCount:12}]),function(req,res,next){
     req.body.eva_stu_images = req.files['eva_stu_images'];
     req.body.eva_stu_painting = req.files['eva_stu_painting'];
@@ -124,7 +133,7 @@ router.post("/addStu",upload.fields([{name:'eva_stu_images',maxCount:12},{name:'
         }else{
             StuEva.update(req.body,{where:{studentId:req.body.studentId,evaluateId:req.body.evaluateId}});
         }
-        res.redirect('/Evaluate/addStu/'+req.body.evaluateId); 
+        res.redirect('/Evaluate/addStu/'+req.body.evaluateId+'/student/'+req.body.studentId); 
     });
 });
 

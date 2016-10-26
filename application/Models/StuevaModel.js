@@ -16,7 +16,8 @@ var Stueva = sequelize.define('stuEva',{
       // 'eva_class_id':Sequelize.INTEGER,
       // 'eva_student_id':Sequelize.INTEGER,
       'eva_stu_painting':{
-            type:Sequelize.STRING(1024),      
+            type:Sequelize.STRING(1024),   
+            // de
             set:function(obj){
                   if(typeof(obj) !=='undefined'){
                         var files = {};
@@ -30,7 +31,7 @@ var Stueva = sequelize.define('stuEva',{
             },
             get:function(){
                   var value= this.getDataValue('eva_stu_painting');
-                  if(value !=''){
+                  if(value !='' && value != null){
                         
                   value = JSON.parse(this.getDataValue('eva_stu_painting'));
                   }
@@ -53,7 +54,7 @@ var Stueva = sequelize.define('stuEva',{
             },
             get:function(){
                   var value= this.getDataValue('eva_stu_images');
-                  if(value !=''){
+                  if(value !='' && value != null){
                         value = JSON.parse(this.getDataValue('eva_stu_images'));
                   }
                   return value;

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta charset="UTF-8">
+        <title>写课评</title>
+        <% include ../Common/header %>
+        
+        <!--kartik-->
+        <link rel='stylesheet' href='/js/fileinput/css/fileinput.min.css'></link>
+        <script type="text/javascript" src="/js/fileinput/js/fileinput.min.js"></script>
+        <script type="text/javascript" src="/js/fileinput/js/locales/zh.js"></script>
+        <script type="text/javascript" src="/js/fileinput/js/plugins/canvas-to-blob.min.js"></script>
+        <script type="text/javascript" src="/js/fileinput/js/plugins/purify.min.js"></script>
+        <script type="text/javascript" src="/js/fileinput/js/plugins/sortable.min.js"></script>
+        <script type="text/javascript" src="/js/fileinput/themes/fa/theme.js"></script>
+        
+        <!--<script type="text/javascript" src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.min.js"></script>-->
+        <!--<script type="text/javascript" src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.full.min.js"></script>-->
+        <!--<script type="text/javascript" src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>-->
+        <!--<script type="text/javascript" src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.min.map"></script>-->
+        
+        <!--<script src="/js/fileUpload/js/vendor/jquery.ui.widget.js"></script>-->
+        <!--<script src="/js/fileUpload/js/jquery.iframe-transport.js"></script>-->
+        <!--<script src="/js/fileUpload/js/jquery.fileupload.js"></script>-->
+    </header>
+    <body>
+        <ol class="breadcrumb">
+           <li><a href="/">主页</a></li>
+           <li><a href="/class/<%=evaluate.dataValues.eva_class_id%>">班级</a></li>
+           <li><a href="###" class="active">写课评</a></li>
+       </ol>
+        <ul class="nav nav-tabs" id="myTab">
+            <% for(var i=0; i<students.length; i++) {%>
+           <li><a href="#student-<%=students[i].dataValues.id%>" data-toggle="tab"><%=students[i].dataValues.stu_name%></a></li>
+           <% } %>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            
+        <% for(var i=0; i<students.length; i++) {%>
+        <div class="tab-pane fade" id="student-<%=students[i].dataValues.id%>">
+               <form role="form" action="/evaluate/addStu" method="post" enctype="multipart/form-data">
+                   <input type="hidden" name="evaluateId" value="<%=evaluate.dataValues.id%>"></input>
+                   <input type="hidden" name="studentId" value="<%=students[i].dataValues.id%>"></input>
+                   <div class="row">
+                       <label class="col-sm-12 col-md-6 col-lg-3">课评：</label>
+                       <% if(students[i].dataValues.stuEvas != ''){ %>
+                       <textarea  name="eva_stu_content" class="form-control " rows="10" ><%=students[i].dataValues.stuEvas[0].dataValues.eva_stu_content%></textarea>
+                       <% }else{ %>
+                       <textarea  name="eva_stu_content" class="form-control " rows="10" ></textarea>
+                       <% } %>
+                   </div>
+                   <div class="row ">
+                       <label class="col-sm-12 col-md-1 col-lg-1" >画：</label>
+                       <div class="col-sm-12 col-md-2 col-lg-2 container" >
+                           <input type="file" name="eva_stu_painting"  class="form-control file" multiple="multiple" id="painting_upload_btn" data-show-upload="false" data-show-caption="false"></input> 
+                       </div>
+                   </div>
+                   <div class="row ">
+                       <label class="col-sm-12 col-md-1 col-lg-1"> 人：</label>
+                       <div class="col-sm-12 col-md-2 col-lg-2 container" >
+                          <input type="file" name="eva_stu_images"  class="form-control file" multiple="multiple" id="images_upload_btn"  data-show-upload="false" data-show-caption="false"></input>
+                        </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-sm-12 col-md-1 col-lg-1">
+                           <button type="submit" class="btn btn-primary" >提  交</button>
+                       </div>
+                     </div>
+               </form>
+               </div>
+           <% }%>
+        </div>
+    </body>
+    <script>
+        $('#myTab a').click(function(e){
+            e.preventDefault();
+            $(this).tab('show');
+        });
+        $('#myTab a:first').tab('show');
+        
+    </script>
+</html>
+        
