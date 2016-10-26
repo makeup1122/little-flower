@@ -43,6 +43,28 @@
                         </div>
                     </div>
                     <% } %>
+                    <% for(var x in  student.stuEvas[i].eva_stu_painting){ %>
+                    <div class="col-sm-6 col-md-3 col-lg-1">
+                        <% if(!mobile){ %>
+                             <a href="#" class="thumbnail" data-toggle="modal" data-target="#eva_stu_painting<%=student.stuEvas[i].id%><%=x%>">
+                                <img src="<%=student.stuEvas[i].eva_stu_painting[x]%>" style="max-width: 100%;"></img>
+                            </a>
+                        <% }else{%>
+                            <img  class="thumbnail" 
+                            
+                            src="<%=student.stuEvas[i].eva_stu_painting[x]%>" style="max-width: 100%;"></img>
+                        <% } %>
+                    </div>
+                    <div class="modal fade" id="eva_stu_painting<%=student.stuEvas[i].id%><%=x%>" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <a href="#" class="eva_stu_images_hide">
+                                    <img class="img-responsive" src="<%=student.stuEvas[i].eva_stu_painting[x]%>">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
             </div>
             <div class='row'>
                 <div class="col-sm-6 col-md-6 col-lg-6">
