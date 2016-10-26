@@ -57,26 +57,26 @@
                    <div class="row">
                        <label class="col-sm-12 col-md-6 col-lg-3"><%=stu_evaluate.dataValues.stu_name%>的课评：</label>
                        <% if(stu_evaluate.dataValues.stuEvas != ''){ %>
-                       <textarea  name="eva_stu_content" class="form-control " rows="10" ><%=stu_evaluate.dataValues.stuEvas[0].dataValues.eva_stu_content%></textarea>
+                       <textarea  name="eva_stu_content" class="form-control " rows="15" ><%=stu_evaluate.dataValues.stuEvas[0].dataValues.eva_stu_content%></textarea>
                        <% }else{ %>
-                       <textarea  name="eva_stu_content" class="form-control " rows="10" ></textarea>
+                       <textarea  name="eva_stu_content" class="form-control " rows="15" ></textarea>
                        <% } %>
                    </div>
                    <div class="row ">
-                       <label class="col-sm-12 col-md-1 col-lg-1" >画：</label>
-                       <div class="col-sm-12 col-md-2 col-lg-2 container" >
+                       <label class="col-xs-1 col-sm-1 col-md-1 col-lg-1" >画：</label>
+                       <div class="col-xs-1 col-sm-6 col-md-2 col-lg-2 container" >
                            <input type="file" name="eva_stu_painting"  class="form-control file" multiple="multiple" id="painting_upload_btn" data-show-upload="false" data-show-caption="false"></input> 
                        </div>
                    </div>
                    <div class="row ">
-                       <label class="col-sm-12 col-md-1 col-lg-1"> 人：</label>
-                       <div class="col-sm-12 col-md-2 col-lg-2 container" >
+                       <label class="col-xs-1 col-sm-6 col-md-1 col-lg-1"> 人：</label>
+                       <div class="col-xs-1 col-sm-11 col-md-2 col-lg-2 container" >
                           <input type="file" name="eva_stu_images"  class="form-control file" multiple="multiple" id="images_upload_btn"  data-show-upload="false" data-show-caption="false"></input>
                         </div>
                    </div>
                    <div class="row">
-                       <div class="col-sm-12 col-md-1 col-lg-1">
-                           <button type="submit" class="btn btn-primary" >提  交</button>
+                       <div class="col-sm-12 col-md-6 col-lg-6">
+                           <p class="text-center"><button type="submit" class="btn btn-primary btn-lg" >&nbsp;&nbsp;&nbsp;&nbsp;提&nbsp;&nbsp;交&nbsp;&nbsp;&nbsp;&nbsp;</button></p>
                        </div>
                      </div>
     </form>

@@ -137,4 +137,13 @@ router.post("/addStu",upload.fields([{name:'eva_stu_images',maxCount:12},{name:'
     });
 });
 
+//preview
+router.get('/preview/:eva_id',function(req,res){
+    Evaluate.findOne({where:{id:req.params.eva_id}}).then(function(evaluate){
+        StuEva.findAll({where:{'evaluateId':req.params.eva_id},include:[{model:Student,required:false}]}).then(function(stu_evaluate){
+            console.log(stu_evaluate);
+            res.render('Evaluate/preview',{evaluate:evaluate,stu_evaluate:stu_evaluate}) ;
+        });
+    });
+});
 module.exports = router;

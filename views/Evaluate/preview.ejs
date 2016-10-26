@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>课评</title>
+    <% include ../Common/header %>
+</head>
+
+<body>
+    <div class="container">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">课题:
+                    <%=evaluate.dataValues.eva_title%>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <p style="word-break:break-all">
+                    <%=evaluate.dataValues.eva_content%>
+                </p>
+            </div>
+        </div>
+    </div>
+    <% for(var i = 0 ; i< stu_evaluate.length;i++){ %>
+    <div class="container">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">学生:
+                    <%=stu_evaluate[i].student.stu_name%>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <p style="word-break:break-all">
+                    <%=stu_evaluate[i].eva_stu_content%>
+                </p>
+                
+                <% for(var p in stu_evaluate[i].eva_stu_painting){ %>
+                <img class="img-rounded img-thumbnail img-responsive" src="<%=stu_evaluate[i].eva_stu_painting[p]%>"></img>
+                <% } %>            
+            </div>
+        </div>
+    </div>
+    <% } %>
+</body>
+
+</html>
